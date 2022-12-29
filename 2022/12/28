@@ -110,4 +110,6 @@ class Solution(object):
             else:
                 left = mid+1
         return -1
+ 总结：左闭右闭，右面的value是合法的。[1,1]所以，while判定《=， 取0，size-1
+ 右开，[1,1),右区间本身就不计入，所以是《 取0，size
  
