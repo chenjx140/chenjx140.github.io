@@ -1,0 +1,18 @@
+27. Remove Element
+双指针：
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        inp = 0
+
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[inp] = nums[i]
+                inp+=1
+        return inp
+总结：
+快指针不用调整所以直接for loop，慢指针只有在不下相等数值时才会更新。
