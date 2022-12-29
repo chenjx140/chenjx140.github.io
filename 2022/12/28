@@ -16,3 +16,55 @@ class Solution(object):
         return inp
 总结：
 快指针不用调整所以直接for loop，慢指针只有在不下相等数值时才会更新。
+
+
+704 Binary Search
+
+二分：
+#切list
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        ind = 0
+        if target > nums[-1] or target <nums[0]:
+            return -1
+        while True:
+            mid_i = len(nums)//2
+            if len(nums) == 1 and nums[mid_i] != target:
+                return -1
+            if nums[mid_i] == target:
+                ind += mid_i
+                return ind
+            elif nums[mid_i] > target:
+                nums = nums[:mid_i]
+            else:
+                ind += mid_i+1
+                nums = nums[mid_i+1:]
+                
+#调左右            
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        left = 0
+        right = len(nums) -1
+
+        while left < right:
+            mid = (left+right)//2
+            if nums[mid] > target:
+                right = mid
+            elif nums[mid] == target:
+                return mid
+            else:
+                left = mid + 1
+        if nums[left] == target:
+            return left
+        return -1                
+ 
