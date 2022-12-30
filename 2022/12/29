@@ -1,0 +1,104 @@
+977. Squares of a Sorted Array
+双指针
+class Solution(object):
+    def sortedSquares(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        res = [0] * len(nums)
+        L = 0
+        R = len(nums) -1
+        res_i = len(nums) -1
+
+        while L <= R:
+            Left_n = nums[L] **2
+            Rig_n = nums[R] **2
+
+            if Left_n < Rig_n:
+                res[res_i] = Rig_n
+                R -= 1
+            else:
+                res[res_i] = Left_n
+                L+= 1
+            res_i -=1
+        return res
+        
+  209 minimum array     
+  class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        L = 0
+        R = 0
+        res = float('inf')
+        while R <= len(nums):
+            R+=1
+            while sum(nums[L:R]) >= target:
+                if len(nums[L:R]) < res:
+                    res = len(nums[L:R])
+                L += 1
+        if res == float('inf'):
+            return 0
+        return res
+ 总结：不应该每次重新计算sum，应该直接用上次加或者减。不然白算了
+ 
+ 60 matrix
+ class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        
+        matrix = [[0]*n for _ in range(n)]
+
+        loop = n//2
+        num = 1
+        for i in range(loop):
+            #l-r
+            for j in range(i,n-1-i):
+                matrix[i][j] = num
+                num += 1
+            # u - d
+            for k in range(i,n-1-i):
+                matrix[k][n-i-1] = num
+                num += 1
+
+            for m in range(n-i-1,i,-1):
+                matrix[n-i-1][m] = num
+                num += 1
+
+            for x in range(n-i-1,i,-1):
+                matrix[x][i] = num
+                num += 1
+
+        if n%2 != 0:
+            matrix[loop][loop] = num
+
+        return (matrix)
+ class Solution(object):
+    def minSubArrayLen(self, target, nums):
+        """
+        :type target: int
+        :type nums: List[int]
+        :rtype: int
+        """
+        L = 0
+        R = 0
+        summ = 0
+        res = float('inf')
+        for i in nums:
+            summ += i
+            R += 1
+            while summ >= target:
+                if (R-L) < res:
+                    res = len(nums[L:R])
+                summ -= nums[L]
+                L += 1
+        if res == float('inf'):
+            return 0
+        return res
