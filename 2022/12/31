@@ -1,0 +1,146 @@
+19. remove the last nth node
+
+#暴力求解
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+
+        lenA = 0
+        piv = ListNode(next = head)
+
+        cur = piv
+
+        while cur is not None:
+            lenA +=1
+            cur = cur.next
+        cur = piv
+        for i in range(lenA - n -1):
+            cur = cur.next
+        cur.next = cur.next.next
+        return piv.next
+       
+# 快慢指针   
+  # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        
+        piv = ListNode(next = head)
+
+        fast,slow = piv ,piv
+
+        for _ in range(n+1):
+            fast = fast.next
+
+        while fast is not None:
+            fast = fast.next
+            slow = slow.next
+
+        slow.next = slow.next.next
+
+        return piv.next
+   # 总结： 要在curr前一位移动指针
+   
+   
+   # 160 intersection linked list
+   
+   class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        """
+        :type head1, head1: ListNode
+        :rtype: ListNode
+        """
+        tab = set()
+        while headB is not None:
+            tab.add(headB)
+            headB = headB.next
+
+        while headA is not None:
+            if headA  in tab:
+                return headA
+            headA = headA.next
+
+先过一个，然后再找另一个里有没有，快于传统方法。
+一般： 先让两个linked list 一样长，然后一起过，看有没有一样的。
+
+# 24 swap nodes
+理清顺须很重要
+
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        piv = ListNode(next = head)
+
+        pre = piv
+
+        while pre.next and pre.next.next:
+
+            back = pre.next.next
+            
+            back3 = back.next
+
+            back1 = pre.next
+
+            pre.next = back
+
+            pre.next.next = back1
+
+            pre.next.next.next = back3
+
+            pre = pre.next.next
+
+        return piv.next
+      
+      
+      
+      
+      
+  #142 linked list cycle
+  
+  class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        fast = head
+        slow = head
+
+        while fast != None and fast.next != None:
+            fast = fast.next.next
+            slow = slow.next
+            if fast == slow:
+                index1 = fast
+                index2 = head
+                while index1 != index2:
+                    index1 = index1.next
+                    index2 = index2.next
+                return index1
+        return None
+        
+  #快慢指针检测环，相遇后，从头出一个指针，焦点一个，相遇时就是环的起点
