@@ -1,0 +1,112 @@
+344. Reverse String
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+
+        for i in range(len(s)//2):
+            s[i], s[len(s)-1-i] = s[len(s)-1-i], s[i]
+        return s
+ 没啥好说的
+ 
+ 541. Reverse String II
+ 
+ class Solution:
+    def reverseStr(self, s: str, k: int) -> str:
+
+        left = 0
+        right = left
+        str1 = []
+        while left < len(s):
+            right = left + (k*2)
+            tar = s[left:right]
+            tar = list(tar)
+            l = 0
+            r = k-1
+            if len(tar) < k:
+                r = len(tar) -1
+            while l < r:
+               tar[l], tar[r] = tar[r],tar[l]
+               l +=1
+               r -=1
+            str1 += (tar)
+
+            left = right
+        
+        return "".join(str1)
+        
+        剑指05 
+        
+        class Solution:
+    def replaceSpace(self, s: str) -> str:
+        l = s.split(" ")
+        return "%20".join(l)
+        硬解
+        
+        class Solution:
+    def replaceSpace(self, s: str) -> str:
+        counter = s.count(" ")
+
+        res = list(s)
+        res.extend([' '] * counter*2)
+        left = len(s)-1
+        right = len(res) -1
+
+        while left >= 0:
+            if res[left] != " ":
+                res[right] = res[left]
+                left -=1
+                right -=1
+            else:
+                res[right-2:right+1] = '%20'
+                right -=3
+                left -=1
+        return "".join(res)
+        
+        双指针，可2刷
+        
+        
+        
+  151. Reverse Words in a String
+  所以解题思路如下：
+
+移除多余空格
+将整个字符串反转
+将每个单词反转
+
+移除多余空格 : "the sky is blue"
+字符串反转："eulb si yks eht"
+单词反转："blue is sky the"
+
+剑指58：
+
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        new_s = ''
+        for i in range(len(s)):
+            j = (i+n)%len(s)
+            print(j)
+            new_s = new_s + s[j]
+        return new_s
+位运算
+
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        s = list(s)
+
+        s[:n] = list(reversed(s[0:n]))
+        s[n:] = list(reversed(s[n:]))
+        s.reverse()
+
+        return "".join(s)
+ 不截取字符串： 转前，转后，整个list反
+ 
+ class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        l = len(s)
+        s += s
+        print(s)
+        return s[n:l+n]
+
+  
