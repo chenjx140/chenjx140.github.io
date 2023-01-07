@@ -1,0 +1,89 @@
+232. Implement Queue using Stacks
+两个堆栈可模拟队列
+class MyQueue:
+
+    def __init__(self):
+        self.stackin = []
+        self.stackout = []
+        
+
+    def push(self, x: int) -> None:
+        self.stackin.append(x)
+
+    def pop(self) -> int:
+        if self.stackout:
+            return self.stackout.pop()
+        else:
+            for i in range(len(self.stackin)):
+                
+                self.stackout.append(self.stackin.pop())
+            print(self.stackout)
+            
+            if self.stackout:
+                return self.stackout.pop()
+            else:
+                return
+        
+
+    def peek(self) -> int:
+        ans = self.pop()
+        self.stackout.append(ans)
+        return ans
+
+
+    def empty(self) -> bool:
+        if len(self.stackin) == 0 and len(self.stackout) == 0 :
+            return True
+        return False
+        
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+
+
+
+225. Implement Stack using Queues
+
+一个队列就够，每次for loop 重排n-1个
+class MyStack:
+
+    def __init__(self):
+        self.queue= []
+
+    def push(self, x: int) -> None:
+        self.queue.append(x)
+        for _ in range(len(self.queue)-1):
+            self.queue.append(self.queue.pop(0))
+        
+
+    def pop(self) -> int:
+       
+        
+        return self.queue.pop(0)
+
+        
+
+    def top(self) -> int:
+        
+        return self.queue[0]
+
+        
+
+    def empty(self) -> bool:
+        if len(self.queue) !=0:
+            return False
+        return True
+        
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
